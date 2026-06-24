@@ -118,9 +118,23 @@ export default async function handler(req: any, res: any) {
   } catch (error: any) {
     console.error("Gemini API Error:", error);
 
-    return res.status(500).json({
-      error: "Internal Server Error",
-      details: error.message || String(error),
-    });
+    const errorMessage = error.message || String(error);
+
+if (
+  errorMessage.includes("429") ||
+  errorMessage.includes("RESOURCE_EXHAUSTED") ||
+  errorMessage.includes("Quota exceeded")
+) {
+  return res.status(200).json({
+    response:
+      "SYSTEM NOTICE: The AI assistant is temporarily unavailable because the Gemini API quota has been reached. Please try again later.",
+    isFallback: true,
+  });
+}
+
+return res.status(500).json({
+  error: "Internal Server Error",
+  details: errorMessage,
+});
   }
 }
