@@ -23,13 +23,16 @@ export default function CyberBot() {
   const [isLoading, setIsLoading] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isMounted = useRef(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length > 1) {
+      scrollToBottom();
+    }
   }, [messages]);
 
   const handleSendMessage = async (textToSend: string) => {
@@ -116,10 +119,10 @@ export default function CyberBot() {
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 font-sans text-[11px] text-violet-400 font-medium mb-3">
           <Sparkles className="w-3.5 h-3.5 text-violet-400" />
-          AI assistant
+          AI Assistant
         </div>
         <h2 className="text-3xl font-bold text-white tracking-tight relative pb-3 font-display">
-          AI assistant
+          AI Assistant
           <span className="absolute bottom-0 left-0 w-16 h-0.5 bg-violet-500" />
         </h2>
         <p className="mt-3 text-sm text-slate-400 max-w-2xl font-sans font-light leading-relaxed">
