@@ -127,7 +127,7 @@ if (
 ) {
   return res.status(200).json({
     response:
-      "SYSTEM NOTICE: The AI assistant is temporarily unavailable because the Gemini API quota has been reached. Please try again later.",
+      "Sorry, the AI assistant is temporarily unavailable. You can still find more information about me in the sections above, including my experience, projects, leadership, certifications, and skills.",
     isFallback: true,
   });
 }
